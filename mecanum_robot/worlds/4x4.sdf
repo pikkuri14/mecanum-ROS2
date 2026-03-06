@@ -1,0 +1,155 @@
+<sdf version='1.10'>
+  <world name='dqn'>
+    <plugin name='gz::sim::systems::Physics' filename='gz-sim-physics-system'/>
+    <plugin name='gz::sim::systems::UserCommands' filename='gz-sim-user-commands-system'/>
+    <plugin name='gz::sim::systems::SceneBroadcaster' filename='gz-sim-scene-broadcaster-system'/>
+    <plugin name='gz::sim::systems::Sensors' filename='gz-sim-sensors-system'>
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <physics type='ode'>
+      <real_time_update_rate>1000</real_time_update_rate>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>150</iters>
+          <precon_iters>0</precon_iters>
+          <sor>1.3999999999999999</sor>
+          <use_dynamic_moi_rescaling>true</use_dynamic_moi_rescaling>
+        </solver>
+        <constraints>
+          <cfm>1.0000000000000001e-05</cfm>
+          <erp>0.20000000000000001</erp>
+          <contact_max_correcting_vel>2000</contact_max_correcting_vel>
+          <contact_surface_layer>0.01</contact_surface_layer>
+        </constraints>
+      </ode>
+    </physics>
+    <gravity>0 0 -9.8000000000000007</gravity>
+    <magnetic_field>5.5644999999999998e-06 2.2875799999999999e-05 -4.2388400000000002e-05</magnetic_field>
+    <atmosphere type='adiabatic'/>
+    <scene>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>true</shadows>
+    </scene>
+    <!-- Custom ground plane, 8x8 meters -->
+    <model name="custom_ground_plane">
+      <static>true</static>
+      <link name="ground_link">
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>4 4</size>
+            </plane>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>4 4</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.7 0.7 0.7 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <pose>2 -2 0 0 0 0</pose>
+    </model>
+    <model name='mecanum_dqn_world_4x4'>
+      <static>true</static>
+      <include>
+        <uri>model://mecanum_dqn_world_4x4</uri>
+      </include>
+      <pose>-4.4408920985006262e-16 -3.6637359812630166e-15 0 0 0 1.9984014443252818e-15</pose>
+      <self_collide>false</self_collide>
+    </model>
+
+    <!-- Remove all previous cones -->
+
+   <!-- Place 10 cones diagonally in the upper right, starting at (2,2), 5cm apart -->
+    <include>
+      <uri>file:///home/pikkuri/turtlebot3_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/models/cone_blue</uri>
+      <name>cone_blue_0</name>
+      <pose>2.00 -2.90 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/pikkuri/turtlebot3_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/models/cone_blue</uri>
+      <name>cone_blue_1</name>
+      <pose>2.10 -2.80 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/pikkuri/turtlebot3_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/models/cone_blue</uri>
+      <name>cone_blue_2</name>
+      <pose>2.20 -2.70 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/pikkuri/turtlebot3_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/models/cone_blue</uri>
+      <name>cone_blue_3</name>
+      <pose>2.30 -2.60 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/pikkuri/turtlebot3_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/models/cone_blue</uri>
+      <name>cone_blue_4</name>
+      <pose>2.40 -2.50 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/pikkuri/turtlebot3_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/models/cone_blue</uri>
+      <name>cone_blue_5</name>
+      <pose>2.50 -2.40 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/pikkuri/turtlebot3_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/models/cone_blue</uri>
+      <name>cone_blue_6</name>
+      <pose>2.60 -2.30 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/pikkuri/turtlebot3_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/models/cone_blue</uri>
+      <name>cone_blue_7</name>
+      <pose>2.70 -2.20 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/pikkuri/turtlebot3_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/models/cone_blue</uri>
+      <name>cone_blue_8</name>
+      <pose>2.80 -2.10 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/pikkuri/turtlebot3_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/models/cone_blue</uri>
+      <name>cone_blue_9</name>
+      <pose>2.90 -2.0 0 0 0 0</pose>
+    </include>
+
+    <!-- Place docking right after the last cone -->
+    <include>
+      <uri>file:///home/pikkuri/turtlebot3_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/models/docking</uri>
+      <name>docking</name>
+      <pose>3.40 -3.80 4.7317003918578848e-05 1.5707899698803025 -0.0007962970335268812 -3.1334600003186579</pose>
+    </include>
+      <light name='sun' type='directional'>
+      <pose>0 0 10 0 0 0</pose>
+      <cast_shadows>false</cast_shadows>
+      <intensity>1</intensity>
+      <direction>-0.5 0.10000000000000001 -0.90000000000000002</direction>
+      <diffuse>0.800000012 0.800000012 0.800000012 1</diffuse>
+      <specular>0.200000003 0.200000003 0.200000003 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <linear>0.01</linear>
+        <constant>0.90000000000000002</constant>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <spot>
+        <inner_angle>0</inner_angle>
+        <outer_angle>0</outer_angle>
+        <falloff>0</falloff>
+      </spot>
+    </light>
+
+    <!-- ...keep other models/lights as needed... -->
+  </world>
+</sdf>
